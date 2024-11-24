@@ -31,6 +31,7 @@ cd telegram-proxy
 ./proxy.sh logs
 ```
 
+
 ## Команды
 
 - `start` — запустить прокси
@@ -39,18 +40,28 @@ cd telegram-proxy
 - `remove` — удалить контейнер с прокси
 - `logs` — показать логи
 
-## Как указать secret и tag
 
-Можно указать secret и tag c помощью `.env`-файла — это необходимо для указания promoted-канала. Для этого скопируйте файл `.env.example` в `.env` и укажите необходимые параметры.
+## Как указать Promoted-канал
+Посмотрите логи и скопируйте значение Secret 1 
+
+```sh
+./proxy.sh logs
+```
+
+Напишите боту [@MTProxybot](https://t.me/MTProxybot) в Телеграме. Он попросит ввести Secret. Отправьте ему значение из прошлого шага. Бот отправит вам tag. 
+
+Создайте файл .env
 
 ```
 cp .env.example .env
 ```
 
+Вставьте secret и tag из прошлых шагов в .env файл. 
+
 Перезапустите прокси:
 
 ```sh
-./proxy stop & ./proxy start
+./proxy.sh stop && sleep 5 && ./proxy.sh remove && ./proxy.sh start
 ```
 
-Promoted-канал указывается в боте [@MTProxybot](https://t.me/MTProxybot).
+Выполните команду /myproxies в боте [@MTProxybot](https://t.me/MTProxybot) и следуйте инструкции.
