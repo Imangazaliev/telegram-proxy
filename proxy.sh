@@ -48,6 +48,22 @@ proxy_start()
         -e "TAG=$TAG" \
         -e "SECRET=$SECRET" \
         telegrammessenger/proxy:latest
+
+    echo "Proxy started!"
+}
+
+proxy_stop()
+{
+    docker container stop "$CONTAINER_NAME"
+
+    echo "Proxy container stopped!"
+}
+
+proxy_remove()
+{
+    docker container rm "$CONTAINER_NAME"
+
+    echo "Proxy container removed!"
 }
 
 if [ "$COMMAND" = "status" ]; then
@@ -55,9 +71,11 @@ if [ "$COMMAND" = "status" ]; then
 elif [ "$COMMAND" = "start" ]; then
     proxy_start "$@"
 elif [ "$COMMAND" = "stop" ]; then
-    docker container stop "$CONTAINER_NAME"
+    proxy_stop
 elif [ "$COMMAND" = "remove" ]; then
-    docker container rm "$CONTAINER_NAME"
+    proxy_remove
+elif [ "$COMMAND" = "restart" ]; then
+    proxy_stop && proxy_remove && proxy_start "$@"
 elif [ "$COMMAND" = "logs" ]; then
     docker logs "$CONTAINER_NAME"
 fi
