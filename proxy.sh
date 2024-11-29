@@ -78,5 +78,7 @@ elif [ "$COMMAND" = "restart" ]; then
     proxy_stop && proxy_remove && proxy_start "$@"
 elif [ "$COMMAND" = "logs" ]; then
     docker logs "$CONTAINER_NAME"
+else
+    echo "Unknown command \"$COMMAND\""
 fi
 
