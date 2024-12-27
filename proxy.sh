@@ -24,6 +24,7 @@ DEFAULT_CONTAINER_NAME="mtproto-proxy"
 CONTAINER_NAME="${CONTAINER_NAME:=$DEFAULT_CONTAINER_NAME}"
 DEFAULT_PORT=443
 PORT="${PORT:=$DEFAULT_PORT}"
+WORKERS="${WORKERS:=2}"
 
 # удаляем первый аргумент
 shift
@@ -47,6 +48,7 @@ proxy_start()
         -v proxy-config:/data \
         -e "TAG=$TAG" \
         -e "SECRET=$SECRET" \
+	-e "WORKERS=$WORKERS" \
         telegrammessenger/proxy:latest
 
     echo "Proxy started!"
